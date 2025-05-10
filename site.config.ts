@@ -11,13 +11,13 @@ export default siteConfig({
   // basic site info (required)
   name: '字里行间(＾◡＾)✎',
   domain: 'https://giant-zoo-676.notion.site/e3db1daad8d24ec2878846c6f2804320?pvs=4',
-  author: 'Louwh',
+  author: 'WenJun',
 
   // open graph metadata (optional)
-  description: 'Example Next.js Notion Starter Kit Site',
+  //description: 'Example Next.js Notion Starter Kit Site',
 
   // social usernames (optional)
-  twitter: 'wnjn67802598',
+  //twitter: '@lonwj0407',
   github: 'lowjh',
   // mastodon: '#', // optional mastodon profile URL, provides link verification
   // newsletter: '#', // optional newsletter URL

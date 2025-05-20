@@ -9,7 +9,7 @@ export default siteConfig({
   rootNotionSpaceId: null,
 
   // basic site info (required)
-  name: '字里行间(＾◡＾)✎',
+  //name: '字里行间(＾◡＾)✎',
   domain: 'https://giant-zoo-676.notion.site/e3db1daad8d24ec2878846c6f2804320?pvs=4',
   author: 'WenJun',
 

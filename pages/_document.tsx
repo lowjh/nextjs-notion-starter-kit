@@ -15,15 +15,13 @@ export default class MyDocument extends Document {
             content='width=device-width, initial-scale=1, viewport-fit=cover' 
           />
           
-          {/* 主题色 - 关键：使用 black 让状态栏与网页一体 */}
+          {/* 主题色 */}
           <meta name='theme-color' content='#FFFFFF' media='(prefers-color-scheme: light)' />
           <meta name='theme-color' content='#1F2027' media='(prefers-color-scheme: dark)' />
           
-          {/* iOS 状态栏样式 - 使用 black 而不是 black-translucent */}
-          {/* black = 状态栏黑色，网页从顶部开始（推荐用于深色模式） */}
-          {/* black-translucent = 网页延伸到状态栏下方（会导致颜色不一致） */}
+          {/* 关键：使用 black-translucent 让网页延伸到状态栏 */}
           <meta name='apple-mobile-web-app-capable' content='yes' />
-          <meta name='apple-mobile-web-app-status-bar-style' content='black' />
+          <meta name='apple-mobile-web-app-status-bar-style' content='black-translucent' />
         </Head>
 
         <body>
@@ -38,7 +36,7 @@ export default class MyDocument extends Document {
   function setClassOnDocumentBody(darkMode) {
     document.body.classList.add(darkMode ? classNameDark : classNameLight)
     document.body.classList.remove(darkMode ? classNameLight : classNameDark)
-    // 设置 html 背景色
+    // 设置背景色
     var bgColor = darkMode ? '#1F2027' : '#FFFFFF'
     document.documentElement.style.backgroundColor = bgColor
     document.body.style.backgroundColor = bgColor
@@ -54,7 +52,6 @@ export default class MyDocument extends Document {
   if (localStorageExists) {
     localStorageTheme = JSON.parse(localStorageTheme)
   }
-  // Determine the source of truth
   if (localStorageExists) {
     setClassOnDocumentBody(localStorageTheme)
   } else if (supportsColorSchemeQuery) {

@@ -61,140 +61,106 @@ body {
     background-color: var(--bg-color);
 }
 
+/* ============================================
+   iOS Safari 安全区域修复
+   ============================================ */
 
-/* iOS Safari 安全区域支持 - 深色/浅色模式 */
-@supports (padding: max(0px)) {
-  /* 确保 html 和 body 背景色延伸到安全区域 */
-  html {
-    min-height: 100vh;
-    min-height: -webkit-fill-available;
-  }
-  
-  body {
-    min-height: 100vh;
-    min-height: -webkit-fill-available;
-    /* 适配 iOS 安全区域 */
-    padding-top: env(safe-area-inset-top);
-    padding-bottom: env(safe-area-inset-bottom);
-    padding-left: env(safe-area-inset-left);
-    padding-right: env(safe-area-inset-right);
-  }
-}
-
-/* 深色模式下的安全区域 */
-.dark-mode html {
-  background-color: #1F2027;
-}
-
-.dark-mode body {
-  background-color: #1F2027;
-}
-
-/* 浅色模式下的安全区域 */
-.light-mode html {
-  background-color: #FFFFFF;
-}
-
-.light-mode body {
-  background-color: #FFFFFF;
-}
-
-/* PC 端和移动端通用适配 */
-@media screen {
-  html,
-  body {
-    /* 确保背景色覆盖整个视口 */
-    background-color: var(--bg-color);
-  }
-}
-
-
-/* iOS Safari 顶部导航栏修复 */
-/* 确保导航栏延伸到状态栏 */
-.notion-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
-  /* 延伸到安全区域顶部 */
-  padding-top: env(safe-area-inset-top);
-  /* 高斯模糊背景 */
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  background-color: rgba(255, 255, 255, 0.8);
-}
-
-/* 深色模式下的导航栏 */
-.dark-mode .notion-header {
-  background-color: rgba(31, 32, 39, 0.8);
-}
-
-/* 浅色模式下的导航栏 */
-.light-mode .notion-header {
-  background-color: rgba(255, 255, 255, 0.8);
-}
-
-/* 确保页面内容不被导航栏遮挡 */
-.notion-page {
-  padding-top: calc(env(safe-area-inset-top) + 60px);
-}
-
-/* iOS 特定修复 */
-@supports (-webkit-touch-callout: none) {
-  /* 确保 html 背景色覆盖状态栏 */
-  html {
-    background-color: var(--bg-color);
-  }
-  
-  /* 修复竖屏模式下的顶部区域 */
-  @media screen and (orientation: portrait) {
-    .notion-header {
-      /* 强制延伸到屏幕顶部 */
-      top: 0;
-      padding-top: max(env(safe-area-inset-top), 20px);
-    }
-  }
-}
-
-
-/* iOS Safari 顶部状态栏修复 */
-/* 确保页面从顶部开始，状态栏与网页一体 */
+/* 基础设置 */
 html {
-  /* 防止 iOS 橡皮筋效果时的白边 */
-  background-color: var(--bg-color) !important;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
 }
 
-/* 导航栏固定在顶部 */
-.notion-header {
-  position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-  z-index: 100 !important;
-}
-
-/* 页面内容从导航栏下方开始 */
-.notion-page {
-  padding-top: 60px !important;
+body {
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
 }
 
 /* iOS 特定修复 */
 @supports (-webkit-touch-callout: none) {
   /* 确保背景色一致 */
   html, body {
-    background-color: var(--bg-color) !important;
+    background-color: var(--bg-color);
   }
   
   /* 深色模式 */
   .dark-mode html,
   .dark-mode body {
-    background-color: #1F2027 !important;
+    background-color: #1F2027;
   }
   
   /* 浅色模式 */
   .light-mode html,
   .light-mode body {
-    background-color: #FFFFFF !important;
+    background-color: #FFFFFF;
   }
+}
+
+/* ============================================
+   导航栏延伸到顶部（覆盖状态栏）
+   ============================================ */
+
+.notion-header {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 100 !important;
+  /* 关键：延伸到 iOS 状态栏 */
+  padding-top: env(safe-area-inset-top) !important;
+  /* 高斯模糊背景 */
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  background-color: rgba(255, 255, 255, 0.8) !important;
+}
+
+/* 深色模式导航栏 */
+.dark-mode .notion-header {
+  background-color: rgba(31, 32, 39, 0.8) !important;
+}
+
+/* 浅色模式导航栏 */
+.light-mode .notion-header {
+  background-color: rgba(255, 255, 255, 0.8) !important;
+}
+
+/* ============================================
+   页面内容定位（字体位置不变）
+   ============================================ */
+
+.notion-page {
+  /* 为导航栏留出空间 */
+  padding-top: calc(env(safe-area-inset-top) + 60px) !important;
+}
+
+/* ============================================
+   底部修复（去掉白色分割线）
+   ============================================ */
+
+/* 确保底部背景色一致 */
+.notion-page {
+  padding-bottom: env(safe-area-inset-bottom) !important;
+}
+
+/* 底部没有额外边距或边框 */
+.notion-page > *:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* 修复底部可能出现的白线 */
+html::after,
+body::after {
+  content: none !important;
+}
+
+/* 确保所有元素的背景色继承 */
+* {
+  background-color: inherit;
+}
+
+/* 排除需要独立背景的元素 */
+.notion-header,
+.notion-page,
+.notion-block {
+  background-color: transparent;
 }

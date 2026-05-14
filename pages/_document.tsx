@@ -12,19 +12,18 @@ export default class MyDocument extends Document {
           {/* iOS Safari 安全区域支持 */}
           <meta 
             name='viewport' 
-            content='width=device-width, initial-scale=1, viewport-fit=cover, minimum-scale=1, maximum-scale=1, user-scalable=no' 
+            content='width=device-width, initial-scale=1, viewport-fit=cover' 
           />
           
-          {/* 主题色 - 支持深色/浅色模式 */}
+          {/* 主题色 - 关键：使用 black 让状态栏与网页一体 */}
           <meta name='theme-color' content='#FFFFFF' media='(prefers-color-scheme: light)' />
           <meta name='theme-color' content='#1F2027' media='(prefers-color-scheme: dark)' />
           
-          {/* iOS 状态栏样式 - 使用 black-translucent 让网页延伸到状态栏 */}
+          {/* iOS 状态栏样式 - 使用 black 而不是 black-translucent */}
+          {/* black = 状态栏黑色，网页从顶部开始（推荐用于深色模式） */}
+          {/* black-translucent = 网页延伸到状态栏下方（会导致颜色不一致） */}
           <meta name='apple-mobile-web-app-capable' content='yes' />
-          <meta name='apple-mobile-web-app-status-bar-style' content='black-translucent' />
-          
-          {/* iOS 启动图 */}
-          <link rel='apple-touch-startup-image' href='/favicon.png' />
+          <meta name='apple-mobile-web-app-status-bar-style' content='black' />
         </Head>
 
         <body>
@@ -39,16 +38,10 @@ export default class MyDocument extends Document {
   function setClassOnDocumentBody(darkMode) {
     document.body.classList.add(darkMode ? classNameDark : classNameLight)
     document.body.classList.remove(darkMode ? classNameLight : classNameDark)
-    // 设置 html 和 body 背景色以覆盖 iOS 安全区域
+    // 设置 html 背景色
     var bgColor = darkMode ? '#1F2027' : '#FFFFFF'
     document.documentElement.style.backgroundColor = bgColor
     document.body.style.backgroundColor = bgColor
-    
-    // 强制设置视口高度（修复 iOS Safari 高度问题）
-    document.documentElement.style.minHeight = '100vh'
-    document.documentElement.style.minHeight = '-webkit-fill-available'
-    document.body.style.minHeight = '100vh'
-    document.body.style.minHeight = '-webkit-fill-available'
   }
   var preferDarkQuery = '(prefers-color-scheme: dark)'
   var mql = window.matchMedia(preferDarkQuery)
@@ -63,14 +56,11 @@ export default class MyDocument extends Document {
   }
   // Determine the source of truth
   if (localStorageExists) {
-    // source of truth from localStorage
     setClassOnDocumentBody(localStorageTheme)
   } else if (supportsColorSchemeQuery) {
-    // source of truth from system
     setClassOnDocumentBody(mql.matches)
     localStorage.setItem(storageKey, mql.matches)
   } else {
-    // source of truth from document.body
     var isDarkMode = document.body.classList.contains(classNameDark)
     localStorage.setItem(storageKey, JSON.stringify(isDarkMode))
   }

@@ -107,3 +107,52 @@ body {
     background-color: var(--bg-color);
   }
 }
+
+
+/* iOS Safari 顶部导航栏修复 */
+/* 确保导航栏延伸到状态栏 */
+.notion-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  /* 延伸到安全区域顶部 */
+  padding-top: env(safe-area-inset-top);
+  /* 高斯模糊背景 */
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+/* 深色模式下的导航栏 */
+.dark-mode .notion-header {
+  background-color: rgba(31, 32, 39, 0.8);
+}
+
+/* 浅色模式下的导航栏 */
+.light-mode .notion-header {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+/* 确保页面内容不被导航栏遮挡 */
+.notion-page {
+  padding-top: calc(env(safe-area-inset-top) + 60px);
+}
+
+/* iOS 特定修复 */
+@supports (-webkit-touch-callout: none) {
+  /* 确保 html 背景色覆盖状态栏 */
+  html {
+    background-color: var(--bg-color);
+  }
+  
+  /* 修复竖屏模式下的顶部区域 */
+  @media screen and (orientation: portrait) {
+    .notion-header {
+      /* 强制延伸到屏幕顶部 */
+      top: 0;
+      padding-top: max(env(safe-area-inset-top), 20px);
+    }
+  }
+}

@@ -124,11 +124,10 @@ export const redisPassword = getEnv(
   isRedisEnabled ? undefined : null
 )
 export const redisUser: string = getEnv('REDIS_USER', 'default')
-export const redisUrl =
-  getEnv('REDIS_URL', null) ||
-  (redisHost && redisPassword
-    ? `redis://${redisUser}:${redisPassword}@${redisHost}`
-    : null)
+export const redisUrl = getEnv(
+  'REDIS_URL',
+  isRedisEnabled ? `redis://${redisUser}:${redisPassword}@${redisHost}` : null
+)
 export const redisNamespace = getEnv('REDIS_NAMESPACE', 'preview-images')
 
 // ----------------------------------------------------------------------------

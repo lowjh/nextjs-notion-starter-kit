@@ -156,3 +156,45 @@ body {
     }
   }
 }
+
+
+/* iOS Safari 顶部状态栏修复 */
+/* 确保页面从顶部开始，状态栏与网页一体 */
+html {
+  /* 防止 iOS 橡皮筋效果时的白边 */
+  background-color: var(--bg-color) !important;
+}
+
+/* 导航栏固定在顶部 */
+.notion-header {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 100 !important;
+}
+
+/* 页面内容从导航栏下方开始 */
+.notion-page {
+  padding-top: 60px !important;
+}
+
+/* iOS 特定修复 */
+@supports (-webkit-touch-callout: none) {
+  /* 确保背景色一致 */
+  html, body {
+    background-color: var(--bg-color) !important;
+  }
+  
+  /* 深色模式 */
+  .dark-mode html,
+  .dark-mode body {
+    background-color: #1F2027 !important;
+  }
+  
+  /* 浅色模式 */
+  .light-mode html,
+  .light-mode body {
+    background-color: #FFFFFF !important;
+  }
+}

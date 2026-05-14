@@ -10,6 +10,9 @@ export default class MyDocument extends Document {
 
           <link rel='manifest' href='/manifest.json' />
           <meta name='viewport' content='width=device-width, initial-scale=1, viewport-fit=cover' />
+                  {/* iOS Safari theme-color */}
+          <meta name='theme-color' content='#FFFFFF' media='(prefers-color-scheme: light)' />
+          <meta name='theme-color' content='#1F2027' media='(prefers-color-scheme: dark)' />
         </Head>
 
         <body>

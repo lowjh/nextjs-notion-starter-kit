@@ -3,12 +3,25 @@ import Document, { Head, Html, Main, NextScript } from 'next/document'
 export default class MyDocument extends Document {
   override render() {
     return (
-      <Html lang='en'>
+      <Html lang='zh-CN'>
         <Head>
           <link rel='shortcut icon' href='/favicon.ico' />
           <link rel='icon' type='image/png' sizes='32x32' href='favicon.png' />
-
           <link rel='manifest' href='/manifest.json' />
+          
+          {/* iOS Safari 安全区域支持 */}
+          <meta 
+            name='viewport' 
+            content='width=device-width, initial-scale=1, viewport-fit=cover' 
+          />
+          
+          {/* 主题色 - 支持深色/浅色模式 */}
+          <meta name='theme-color' content='#FFFFFF' media='(prefers-color-scheme: light)' />
+          <meta name='theme-color' content='#1F2027' media='(prefers-color-scheme: dark)' />
+          
+          {/* iOS 状态栏样式 */}
+          <meta name='apple-mobile-web-app-capable' content='yes' />
+          <meta name='apple-mobile-web-app-status-bar-style' content='default' />
         </Head>
 
         <body>
@@ -23,6 +36,8 @@ export default class MyDocument extends Document {
   function setClassOnDocumentBody(darkMode) {
     document.body.classList.add(darkMode ? classNameDark : classNameLight)
     document.body.classList.remove(darkMode ? classNameLight : classNameDark)
+    // 设置 html 背景色以覆盖 iOS 安全区域
+    document.documentElement.style.backgroundColor = darkMode ? '#1F2027' : '#FFFFFF'
   }
   var preferDarkQuery = '(prefers-color-scheme: dark)'
   var mql = window.matchMedia(preferDarkQuery)
@@ -53,7 +68,6 @@ export default class MyDocument extends Document {
             }}
           />
           <Main />
-
           <NextScript />
         </body>
       </Html>

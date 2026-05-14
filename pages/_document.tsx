@@ -3,12 +3,13 @@ import Document, { Head, Html, Main, NextScript } from 'next/document'
 export default class MyDocument extends Document {
   override render() {
     return (
-      <Html lang='en'>
+      <Html lang='zh-CN'>
         <Head>
           <link rel='shortcut icon' href='/favicon.ico' />
           <link rel='icon' type='image/png' sizes='32x32' href='favicon.png' />
 
           <link rel='manifest' href='/manifest.json' />
+          <meta name='viewport' content='width=device-width, initial-scale=1, viewport-fit=cover' />
         </Head>
 
         <body>
@@ -20,7 +21,9 @@ export default class MyDocument extends Document {
   var storageKey = 'darkMode'
   var classNameDark = 'dark-mode'
   var classNameLight = 'light-mode'
-  function setClassOnDocumentBody(darkMode) {
+  function setClassOnDocumentBody(darkMode)
+    // 同步设置 html 背景色
+    document.documentElement.style.backgroundColor = darkMode ? '#1F2027' : '#FFFFFF' {
     document.body.classList.add(darkMode ? classNameDark : classNameLight)
     document.body.classList.remove(darkMode ? classNameLight : classNameDark)
   }

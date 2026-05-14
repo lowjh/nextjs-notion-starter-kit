@@ -60,3 +60,16 @@ body {
 ::-webkit-scrollbar-track {           
     background-color: var(--bg-color);
 }
+
+/* iOS Safari 安全区域最小修复 */
+html {
+  background-color: var(--bg-color);
+}
+
+.dark-mode html {
+  background-color: #1F2027;
+}
+
+.light-mode html {
+  background-color: #FFFFFF;
+}

@@ -6,6 +6,8 @@ export default siteConfig({
   name: '字里行间(＾◡＾)✎',
   domain: 'louwh.qzz.io',
   author: 'WenJun·lon',
+  description: 'Nothing at all.(・・?)',
+  language: 'zh-CN',
   github: 'lowjh',
   defaultPageIcon: null,
   defaultPageCover: null,
